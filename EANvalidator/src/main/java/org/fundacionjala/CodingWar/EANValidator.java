@@ -12,31 +12,10 @@ public class EANValidator {
      * @return --> true or false
      */
     public static boolean validate(String EAN) {
-
-        boolean res;
-        int checksum = 0;
         int totalSum = additionResults(EAN);
         final int divisor = 10;
-        final int checksumPosition = 12;
-
-        if (totalSum % divisor == 0) {
-            res = verifyChecksum(checksum, Integer.parseInt(String.valueOf(EAN.charAt(checksumPosition))));
-        } else {
-            checksum = calculateNewChecksum(totalSum);
-            res = verifyChecksum(checksum,  Integer.parseInt(String.valueOf(EAN.charAt(checksumPosition))));
-        }
-        return res;
-    }
-
-    /**
-     * Calculates a new checksum if totalSum isn't divisible 10
-     *
-     * @param totalSum, the total sum of the first 12 values.
-     * @return --> the new checksum calculated
-     */
-    private static int calculateNewChecksum(int totalSum) {
-        int divisor = 10;
-        return divisor - (totalSum % divisor);
+        int checksum = totalSum % divisor == 0 ? 0 : divisor - (totalSum % divisor);
+        return verifyChecksum(checksum, Integer.parseInt(String.valueOf(EAN.charAt(EAN.length() - 1))));
     }
 
     /**
@@ -46,18 +25,13 @@ public class EANValidator {
      * @return -->  totalOddsPositions + totalPairsPositions
      */
     private static int additionResults(String EAN) {
-
         int totalOddsPositions = 0;
         int totalPairsPositions = 0;
-
         for (int i = 0; i < EAN.length() - 1; i++) {
-            if (i == 0) {
-                totalOddsPositions = Integer.parseInt(String.valueOf(EAN.charAt(0)));
-            }else if (i % 2 == 0) {
+            if (i == 0 || i % 2 == 0) {
                 totalOddsPositions += Integer.parseInt(String.valueOf(EAN.charAt(i)));
             } else {
-                int valueMultiply = Integer.parseInt(String.valueOf(EAN.charAt(i))) * 3;
-                totalPairsPositions += valueMultiply;
+                totalPairsPositions += Integer.parseInt(String.valueOf(EAN.charAt(i))) * 3;
             }
         }
         return totalOddsPositions + totalPairsPositions;
@@ -71,11 +45,7 @@ public class EANValidator {
      * @return --> true or false
      */
     private static boolean verifyChecksum(int checksum, int finalValue) {
-        if (checksum == finalValue) {
-            return true;
-        } else {
-            return false;
-        }
+        return checksum == finalValue;
     }
 
 }
