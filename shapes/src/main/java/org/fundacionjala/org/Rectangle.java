@@ -1,7 +1,7 @@
 package org.fundacionjala.org;
 
 /**
- * Created by ErickaViraca on 8/24/2016.
+ * Calculates the perimeter and area for a Rectangle.
  */
 public class Rectangle implements Shape{
 

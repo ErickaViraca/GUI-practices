@@ -1,7 +1,7 @@
 package org.fundacionjala.org;
 
 /**
- * Created by ErickaViraca on 8/24/2016.
+ * Calculates the perimeter and area for a Square.
  */
 public class Square implements Shape{
     private final int side;
@@ -14,6 +14,7 @@ public class Square implements Shape{
     public Square(int side) {
         this.side = side;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -21,6 +22,7 @@ public class Square implements Shape{
     public double calculateArea() {
         return side * side;
     }
+
     /**
      * {@inheritDoc}
      */

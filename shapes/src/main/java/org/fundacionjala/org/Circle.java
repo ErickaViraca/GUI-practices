@@ -1,9 +1,10 @@
 package org.fundacionjala.org;
 
 /**
- * Created by ErickaViraca on 8/24/2016.
+ * Calculates the perimeter and area for a Circle.
  */
 class Circle implements Shape{
+
     private  final int radio;
 
     /**
@@ -14,6 +15,7 @@ class Circle implements Shape{
     public Circle(int radio) {
         this.radio = radio;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -21,6 +23,7 @@ class Circle implements Shape{
     public double calculateArea() {
         return Math.PI * Math.pow(radio,2);
     }
+
     /**
      * {@inheritDoc}
      */

@@ -7,14 +7,14 @@ public interface Shape {
     /**
      * Calculate the area.
      *
-     * @return
+     * @return the calculated Area.
      */
     double calculateArea();
 
     /**
      * Calculate the perimeter.
      *
-     * @return
+     * @return the calculated perimeter.
      */
     double calculatePerimeter();
 }
