@@ -16,45 +16,9 @@ public class SearchEngine {
      * @return --> the position (an integer number). and if it isn't found (-1)
      */
     public static int find(String needle, String haystack) {
-        if (isValidNeedle(needle) == true) {
-            Pattern r = Pattern.compile(buildPattern(needle));
-            Matcher m = r.matcher(haystack);
-            if (m.find() == true) {
-                return m.start();
-            }
-            return -1;
-        }
-        return -1;
-    }
-
-    /**
-     * Builds the pattern from the original to the recognized
-     *
-     * @param needle, the base needle.
-     * @return --> modifier.replaceAll(sustitute).
-     */
-    public static String buildPattern(String needle){
-        String regex = "[_]";
-        String sustitute = ".";
-
-        Pattern patron = Pattern.compile(regex);
-        Matcher modifier = patron.matcher(needle);
-        modifier.find();
-
-        return modifier.replaceAll(sustitute);
-    }
-
-    /**
-     * method to verify if it's a valid needle
-     *
-     * @param needle, the needle to be evaluate.
-     * @return --> validate.find()
-     */
-    public static boolean isValidNeedle(String needle) {
-        String regex = "[A-Za-z_]";
-        Pattern valid = Pattern.compile(regex);
-        Matcher validate = valid.matcher(needle);
-        return validate.find();
+        final String regex = "\\Q" + needle.replaceAll("_", "\\\\E.\\\\Q") + "\\E";
+        Matcher matcher = Pattern.compile(regex).matcher(haystack);
+        return matcher.find() ? matcher.start() : -1;
     }
 
 }
